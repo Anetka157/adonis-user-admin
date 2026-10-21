@@ -19,28 +19,28 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
+        <th>Pořadí</th>
         <th>Jméno</th>
         <th>Email</th>
         <th>Akce</th>
       </tr>
     </thead>
     <tbody>
-      @each(user in users)
-        <tr>
-          <td>{{ user.id }}</td>
-          <td>{{ user.fullName || 'Neuvedeno' }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <a href="{{ route('admin.users.edit', { id: user.id }) }}" class="btn">Upravit</a>
-            <form action="{{ route('admin.users.destroy', { id: user.id }) }}?_method=DELETE" method="POST" style="display:inline;">
-              {{ csrfField() }}
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Opravdu smazat?')">Smazat</button>
-            </form>
-          </td>
-        </tr>
-      @end
-    </tbody>
+          @each(user in users)
+            <tr>
+              <td>{{ user.rowNumber }}</td>
+              <td>{{ user.fullName || 'Neuvedeno' }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <a href="{{ route('admin.users.edit', { id: user.id }) }}" class="btn">Upravit</a>
+                <form action="{{ route('admin.users.destroy', { id: user.id }) }}?_method=DELETE" method="POST" style="display:inline;">
+                  {{ csrfField() }}
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Opravdu smazat?')">Smazat</button>
+                </form>
+              </td>
+            </tr>
+          @end
+        </tbody>
   </table>
 </body>
 </html>

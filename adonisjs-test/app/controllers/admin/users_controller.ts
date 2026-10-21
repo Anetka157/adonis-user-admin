@@ -4,7 +4,16 @@ import User from '#models/user'
 export default class UsersController {
   // Výpis všech uživatelů
   async index({ view }: HttpContext) {
-    const users = await User.all()
+    // Načteme uživatele seřazené podle ID vzestupně (od nejnižšího/nejstaršího po nejvyšší)
+    const usersData = await User.query().orderBy('id', 'asc')
+
+    const users = usersData.map((user, index) => {
+      return {
+        ...user.toJSON(),
+        rowNumber: index + 1
+      }
+    })
+
     return view.render('pages/admin/users/index', { users })
   }
 
