@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Správa uživatelů</title>
+  <style>
+    body { font-family: sans-serif; margin: 40px; background: #f4f4f9; }
+    table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background: #333; color: white; }
+    .btn { padding: 8px 12px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
+    .btn-danger { background: #dc3545; }
+    .btn-success { background: #28a745; }
+  </style>
+</head>
+<body>
+  <h1>Správa uživatelů</h1>
+  <a href="{{ route('admin.users.create') }}" class="btn btn-success">+ Přidat uživatele</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Jméno</th>
+        <th>Email</th>
+        <th>Akce</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(user in users)
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.fullName || 'Neuvedeno' }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <a href="{{ route('admin.users.edit', { id: user.id }) }}" class="btn">Upravit</a>
+            <form action="{{ route('admin.users.destroy', { id: user.id }) }}?_method=DELETE" method="POST" style="display:inline;">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Opravdu smazat?')">Smazat</button>
+            </form>
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+</body>
+</html>
