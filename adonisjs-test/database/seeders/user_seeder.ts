@@ -1,16 +1,16 @@
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
-import User from '#models/user'
+import db from '@adonisjs/lucid/services/db'
 
 export default class extends BaseSeeder {
-  async run() {
-    await User.createMany([
+  async run(): Promise<void> {
+    await db.table('users').multiInsert([
       {
-        fullName: 'Jan Novák',
+        full_name: 'Jan Novák',
         email: 'jan.novak@example.com',
         password: 'password123',
       },
       {
-        fullName: 'Eva Svobodová',
+        full_name: 'Eva Svobodová',
         email: 'eva.svobodova@example.com',
         password: 'password123',
       },
